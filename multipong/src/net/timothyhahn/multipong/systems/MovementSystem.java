@@ -7,7 +7,6 @@ import net.timothyhahn.multipong.components.Velocity;
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.Entity;
-import com.artemis.EntityManager;
 import com.artemis.EntitySystem;
 import com.artemis.annotations.Mapper;
 import com.artemis.managers.GroupManager;

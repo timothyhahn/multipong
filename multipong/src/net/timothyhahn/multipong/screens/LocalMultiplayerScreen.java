@@ -7,6 +7,7 @@ public class LocalMultiplayerScreen extends SinglePlayerScreen {
 
 	public LocalMultiplayerScreen(MultiPongGame game) {
 		super(game);
+		world.deleteSystem(as);
 	}
 
 	@Override

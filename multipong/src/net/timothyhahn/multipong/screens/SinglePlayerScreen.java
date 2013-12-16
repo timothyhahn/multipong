@@ -7,10 +7,10 @@ import net.timothyhahn.multipong.components.Bounds;
 import net.timothyhahn.multipong.components.Points;
 import net.timothyhahn.multipong.components.Position;
 import net.timothyhahn.multipong.components.Velocity;
+import net.timothyhahn.multipong.systems.AISystem;
 import net.timothyhahn.multipong.systems.CollisionSystem;
 import net.timothyhahn.multipong.systems.MovementSystem;
 import net.timothyhahn.multipong.systems.PointsSystem;
-
 import com.artemis.Entity;
 import com.artemis.World;
 import com.artemis.managers.GroupManager;
@@ -34,6 +34,8 @@ public class SinglePlayerScreen extends Screen implements InputProcessor {
 	WorldRenderer renderer;
 	final int worldWidth = MultiPongGame.WORLD_WIDTH;
 	final int worldHeight = MultiPongGame.WORLD_HEIGHT;
+	PointsSystem ps;
+	AISystem as;
 	
 	public SinglePlayerScreen(MultiPongGame game){
 		super(game);
@@ -44,23 +46,28 @@ public class SinglePlayerScreen extends Screen implements InputProcessor {
 		camera.position.set(worldWidth / 2, worldHeight / 2, 0);
 		touchPoint = new Vector3();
 		batch = new SpriteBatch();
+		ps = new PointsSystem();
+		as = new AISystem(game.gameHeight);
 		
 		// Artemis
 		world = new World();
-		world.setSystem(new MovementSystem());
+
 		world.setSystem(new CollisionSystem());
-		world.setSystem(new PointsSystem());
+		world.setSystem(new MovementSystem());
+		world.setSystem(ps);
+		world.setSystem(as);
 		world.setManager(new GroupManager());
 		world.setManager(new TagManager());
 		world.initialize();
 		world.setDelta(1);
 
 		renderer = new WorldRenderer(batch, world);
+		renderer.setScale(MultiPongGame.WORLD_HEIGHT / game.gameHeight);
 		
 		leftPaddle = world.createEntity();
 		leftPaddle.addComponent(new Position(0, 100));
 		leftPaddle.addComponent(new Velocity(0,0));
-		leftPaddle.addComponent(new Bounds(MultiPongGame.PADDLE_WIDTH, MultiPongGame.PADDLE_HEIGHT));
+		leftPaddle.addComponent(new Bounds(MultiPongGame.PADDLE_WIDTH, MultiPongGame.PADDLE_HEIGHT + 4));
 		leftPaddle.addComponent(new Points());
 		world.getManager(GroupManager.class).add(leftPaddle, "PADDLES");
 		world.getManager(TagManager.class).register("LEFT", leftPaddle);
@@ -72,6 +79,7 @@ public class SinglePlayerScreen extends Screen implements InputProcessor {
 		rightPaddle.addComponent(new Points());
 		world.getManager(GroupManager.class).add(rightPaddle, "PADDLES");		
 		world.getManager(TagManager.class).register("RIGHT", rightPaddle);
+		world.getManager(TagManager.class).register("AI", rightPaddle);
 		
 		ball = world.createEntity();
 		ball.addComponent(new Position(worldWidth / 2 - MultiPongGame.BALL_SIZE / 2, worldHeight / 2 - MultiPongGame.BALL_SIZE / 2));
@@ -84,14 +92,21 @@ public class SinglePlayerScreen extends Screen implements InputProcessor {
 	@Override
 	public void update() {
 		world.process();
+		if (ps.isGameOver()){
+			Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
+			game.setScreen(new GameOverScreen(game));
+			this.dispose();
+		}
 	}
 
 	@Override
 	public void present() {
 		GLCommon gl = Gdx.gl;
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+
 		gl.glClearColor(1.0f, 1.0f, 1.0f, 1);
         gl.glEnable(GL10.GL_TEXTURE_2D);
+
 
         Gdx.input.setInputProcessor(this);
 		renderer.render();
@@ -109,6 +124,7 @@ public class SinglePlayerScreen extends Screen implements InputProcessor {
 
 	@Override
 	public void dispose() {
+		System.gc();
 	}
 
 	@Override
@@ -128,13 +144,8 @@ public class SinglePlayerScreen extends Screen implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		if(screenX < game.gameWidth / 2 - 40){
-			MoveAction ma = new MoveAction(screenY, leftPaddle, game.gameHeight);
-			ma.process();
-		} else if(screenX > game.gameWidth / 2 + 100){
-			MoveAction ma = new MoveAction(screenY, rightPaddle, game.gameHeight);
-			ma.process();
-		}
+		MoveAction ma = new MoveAction(screenY, leftPaddle, game.gameHeight);
+		ma.process();
 		return true;
 	}
 
@@ -145,10 +156,7 @@ public class SinglePlayerScreen extends Screen implements InputProcessor {
 
 	@Override
 	public boolean touchDragged(int screenX, int screenY, int pointer) {
-		//MoveAction ma = new MoveAction(screenY, leftPaddle, game.gameHeight);
-		//ma.process();
 		return false;
-	//	return true;
 	}
 
 	@Override

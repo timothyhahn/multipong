@@ -1,5 +1,6 @@
 package net.timothyhahn.multipong;
 
+import net.timothyhahn.multipong.screens.GameOverScreen;
 import net.timothyhahn.multipong.screens.MainMenuScreen;
 import net.timothyhahn.multipong.screens.Screen;
 
@@ -20,10 +21,12 @@ public class MultiPongGame extends Game {
 	public int gameHeight = 320;
 
 	Screen screen;
+    GameOverScreen gos;
 	
 	public void setScreen(Screen screen){
 		this.screen = screen;
 	}
+
 	@Override
 	public void create() {		
 		Assets.load();
@@ -46,14 +49,11 @@ public class MultiPongGame extends Game {
 
 	@Override
 	public void resize(int width, int height) {
-		int x = Gdx.graphics.getWidth();
-		int y = Gdx.graphics.getHeight();
+		//float changeX = x / gameWidth;
+		//float changeY = y / gameHeight;
 		
-		float changeX = x / gameWidth;
-		float changeY = x / gameHeight;
-		
-		gameWidth = (int) (gameWidth * changeX);
-		gameHeight = (int) (gameHeight * changeY);
+		gameWidth = Gdx.graphics.getWidth();
+		gameHeight = Gdx.graphics.getHeight();
 		
 	}
 

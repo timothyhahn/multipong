@@ -22,14 +22,21 @@ public class MoveAction {
 		Velocity velocity = entity.getComponent(Velocity.class);
 		float scale = gameHeight / MultiPongGame.WORLD_HEIGHT;
 		moveTo = gameHeight - moveTo;
-		System.out.println(moveTo);
-		System.out.println(position.getY());
-		System.out.println(position.getY() + (height / 2));
 		if((position.getY() * scale + scale * (height / 2)) < moveTo){
-			System.out.println("GOUP");
 			velocity.setY(3);
 		} else {
-			System.out.println("GODN");
+			velocity.setY(-3);
+		}
+	}
+	public void processLiteral() {
+		int height = MultiPongGame.PADDLE_HEIGHT;
+		Position position = entity.getComponent(Position.class);
+		Velocity velocity = entity.getComponent(Velocity.class);
+		float scale = gameHeight / MultiPongGame.WORLD_HEIGHT;
+		//moveTo = Math.round(moveTo / scale);
+		if((position.getY() * scale + scale * (height / 2)) < moveTo){
+			velocity.setY(3);
+		} else {
 			velocity.setY(-3);
 		}
 	}

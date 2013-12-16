@@ -36,16 +36,17 @@ public class CollisionSystem extends EntitySystem {
 				   		   valueInRange(positionB.getY(), positionA.getY(), positionA.getY() + boundsA.getHeight());
 		
 		if(xOverlap && yOverlap){
+
 			Velocity velocityA = vm.get(entityA);
 			Velocity velocityB = vm.get(entityB);
-			if(Math.abs(positionA.getY() - positionB.getY()) > Math.abs(positionA.getX() - positionB.getX())) {
-				if(positionA.getX() < positionB.getX()) {
+			if(Math.abs(positionA.getY() - positionB.getY()) + 5 >= Math.abs(positionA.getX() - positionB.getX())) {
+				if(positionA.getX() <= positionB.getX()) {
 					velocityB.goRight();
 				} else {
 					velocityB.goLeft();
 				}
 			} else {
-				if(positionA.getY() < positionB.getY()) {
+				if(positionA.getY() <= positionB.getY()) {
 					velocityB.goDown();
 				} else {
 					velocityB.goUp();

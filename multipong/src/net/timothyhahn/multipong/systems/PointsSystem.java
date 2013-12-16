@@ -20,6 +20,7 @@ public class PointsSystem extends EntitySystem {
 	@Mapper ComponentMapper<Points> pointsM;
 	@Mapper ComponentMapper<Velocity> vm;
 	
+	private boolean gameOver = false;
 	
 	public PointsSystem(){
 		super(Aspect.getAspectForAll(Position.class, Points.class, Velocity.class));
@@ -48,7 +49,9 @@ public class PointsSystem extends EntitySystem {
 
 			if(!(position.getX() > (0 - MultiPongGame.BALL_SIZE - 5)) ) {
 				rPoints.score();
-				System.out.println("Left has " + lPoints.getPoints() + " points and Right has " + rPoints.getPoints());
+				if(rPoints.getPoints() > 9){
+					gameOver = true;
+				}
 				position.reset();
 				for(int j = 0; j < paddles.size(); j++){
 					Position pPosition = posM.get(paddles.get(j));
@@ -58,6 +61,9 @@ public class PointsSystem extends EntitySystem {
 				velocity.setY(0);
 			} else if(!(position.getX() < (MultiPongGame.WORLD_WIDTH + MultiPongGame.BALL_SIZE + 5))) {
 				lPoints.score();
+				if(lPoints.getPoints() > 9){
+					gameOver = true;
+				}
 				position.reset();
 				for(int j = 0; j < paddles.size(); j++){
 					Position pPosition = posM.get(paddles.get(j));
@@ -65,12 +71,14 @@ public class PointsSystem extends EntitySystem {
 				}
 				velocity.setX(2);
 				velocity.setY(0);
-				System.out.println("Left has " + lPoints.getPoints() + " points and Right has " + rPoints.getPoints());
 			}
 			
 		}
 	}
 
+	public boolean isGameOver() {
+		return gameOver;
+	}
 
 
 }
