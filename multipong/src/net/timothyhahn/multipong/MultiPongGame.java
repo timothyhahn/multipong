@@ -17,8 +17,8 @@ public class MultiPongGame extends Game {
 	public static final int WORLD_WIDTH = 480;
 	public static final int WORLD_HEIGHT = 320;
 	
-	public int gameWidth = 480;
-	public int gameHeight = 320;
+	public int screenWidth = 480;
+	public int screenHeight = 320;
 
 	Screen screen;
     GameOverScreen gos;
@@ -49,12 +49,8 @@ public class MultiPongGame extends Game {
 
 	@Override
 	public void resize(int width, int height) {
-		//float changeX = x / gameWidth;
-		//float changeY = y / gameHeight;
-		
-		gameWidth = Gdx.graphics.getWidth();
-		gameHeight = Gdx.graphics.getHeight();
-		
+		screenWidth = Gdx.graphics.getWidth();
+		screenHeight = Gdx.graphics.getHeight();
 	}
 
 	@Override

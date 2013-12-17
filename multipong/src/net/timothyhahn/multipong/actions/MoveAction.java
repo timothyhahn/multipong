@@ -1,40 +1,51 @@
 package net.timothyhahn.multipong.actions;
 
+/** Multipong Imports **/
 import net.timothyhahn.multipong.components.Position;
 import net.timothyhahn.multipong.components.Velocity;
 import net.timothyhahn.multipong.MultiPongGame;
 
+/** Artemis Imports **/
 import com.artemis.Entity;
 
+/**
+ * An action that requires a place to move to and an Entity to move.
+ * This means you do not need to pass a game, just the entity being processed.
+ * This entity should only be a paddle.
+ */
 public class MoveAction {
+
+	/** Private variables **/
+	
 	private int moveTo;
 	private Entity entity;
-	private int gameHeight;
+
 	
-	public MoveAction(int moveTo, Entity entity, int gameHeight){
+	/** Constructors **/
+
+	/** 
+	 * Creates a MoveAction
+	 * @param	moveTo	a height to a paddle to.
+	 * @param	entity	the entity to move.
+	 */
+	public MoveAction(int moveTo, Entity entity){
 		this.moveTo = moveTo;
 		this.entity = entity;
-		this.gameHeight = gameHeight;
 	}
+
+
+	/** Methods **/
+
+	/**
+	 * Processes a move.
+	 * This calculates if you need to move upwards or downwards and
+	 * sets the velocity.
+	 */
 	public void process() {
 		int height = MultiPongGame.PADDLE_HEIGHT;
 		Position position = entity.getComponent(Position.class);
 		Velocity velocity = entity.getComponent(Velocity.class);
-		float scale = gameHeight / MultiPongGame.WORLD_HEIGHT;
-		moveTo = gameHeight - moveTo;
-		if((position.getY() * scale + scale * (height / 2)) < moveTo){
-			velocity.setY(3);
-		} else {
-			velocity.setY(-3);
-		}
-	}
-	public void processLiteral() {
-		int height = MultiPongGame.PADDLE_HEIGHT;
-		Position position = entity.getComponent(Position.class);
-		Velocity velocity = entity.getComponent(Velocity.class);
-		float scale = gameHeight / MultiPongGame.WORLD_HEIGHT;
-		//moveTo = Math.round(moveTo / scale);
-		if((position.getY() * scale + scale * (height / 2)) < moveTo){
+		if((position.getY() + (height / 2)) < moveTo){
 			velocity.setY(3);
 		} else {
 			velocity.setY(-3);

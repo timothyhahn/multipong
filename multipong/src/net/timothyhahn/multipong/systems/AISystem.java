@@ -19,12 +19,10 @@ import com.artemis.utils.ImmutableBag;
 public class AISystem extends EntitySystem {
 	@Mapper ComponentMapper<Position> pm;
 	@Mapper ComponentMapper<Velocity> vm;
-	private int gameHeight;
 	private int counter = 50;
 	private Random generator;
-	public AISystem(int gameHeight) {
+	public AISystem() {
 		super(Aspect.getAspectForAll(Position.class, Velocity.class));
-		this.gameHeight = gameHeight;
 		generator = new Random(); 
 	}
 
@@ -41,14 +39,12 @@ public class AISystem extends EntitySystem {
 		Velocity ballVel = vm.get(ball);
 		if(counter > 10){
 			if(ballVel.getX() >= 0 || generator.nextInt(100) > 95){
-				int scale = gameHeight / MultiPongGame.WORLD_HEIGHT;
-				MoveAction ma = new MoveAction((ballPos.getY()) * scale, ai, gameHeight);
-				ma.processLiteral();
+				MoveAction ma = new MoveAction(ballPos.getY(), ai);
+				ma.process();
 				counter = 0;
 			}
 		} else {
 			counter++;
-		
 		}
 	}
 

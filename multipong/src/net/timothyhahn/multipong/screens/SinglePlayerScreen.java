@@ -17,6 +17,7 @@ import com.artemis.managers.GroupManager;
 import com.artemis.managers.TagManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GLCommon;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -47,7 +48,7 @@ public class SinglePlayerScreen extends Screen implements InputProcessor {
 		touchPoint = new Vector3();
 		batch = new SpriteBatch();
 		ps = new PointsSystem();
-		as = new AISystem(game.gameHeight);
+		as = new AISystem();
 		
 		// Artemis
 		world = new World();
@@ -62,7 +63,7 @@ public class SinglePlayerScreen extends Screen implements InputProcessor {
 		world.setDelta(1);
 
 		renderer = new WorldRenderer(batch, world);
-		renderer.setScale(MultiPongGame.WORLD_HEIGHT / game.gameHeight);
+		renderer.setScale(MultiPongGame.WORLD_HEIGHT / game.screenHeight);
 		
 		leftPaddle = world.createEntity();
 		leftPaddle.addComponent(new Position(0, 100));
@@ -129,8 +130,19 @@ public class SinglePlayerScreen extends Screen implements InputProcessor {
 
 	@Override
 	public boolean keyDown(int keycode) {
-		return false;
+		MoveAction ma = null;
+
+		if(keycode == Keys.W || keycode == Keys.UP)
+			ma = new MoveAction(MultiPongGame.WORLD_HEIGHT, leftPaddle);
+		else if(keycode == Keys.S || keycode == Keys.DOWN)
+			ma = new MoveAction(0, leftPaddle);
+
+		if(ma != null)
+			ma.process();
+
+	    return true;
 	}
+
 
 	@Override
 	public boolean keyUp(int keycode) {
@@ -144,7 +156,13 @@ public class SinglePlayerScreen extends Screen implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		MoveAction ma = new MoveAction(screenY, leftPaddle, game.gameHeight);
+		MoveAction ma = null;
+
+		if(screenY > (game.screenHeight / 2))
+			ma = new MoveAction(0, leftPaddle);
+		else
+			ma = new MoveAction(MultiPongGame.WORLD_HEIGHT, leftPaddle);
+
 		ma.process();
 		return true;
 	}

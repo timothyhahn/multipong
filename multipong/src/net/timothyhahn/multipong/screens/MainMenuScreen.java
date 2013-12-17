@@ -49,11 +49,11 @@ public class MainMenuScreen extends Screen {
 		});
         
         Table table = new Table();
-        table.add(startSinglePlayerGameButton).width(game.gameWidth / 2).height(game.gameHeight / 4);
+        table.add(startSinglePlayerGameButton).width(game.screenWidth / 2).height(game.screenHeight / 4);
         table.row();
-        table.add(startLocalMultiplayerGameButton).width(game.gameWidth / 2).height(game.gameHeight / 4);
+        table.add(startLocalMultiplayerGameButton).width(game.screenWidth / 2).height(game.screenHeight / 4);
         table.row();
-        table.add(startNetworkMultiplayerGameButton).width(game.gameWidth / 2).height(game.gameHeight / 4);
+        table.add(startNetworkMultiplayerGameButton).width(game.screenWidth / 2).height(game.screenHeight / 4);
         table.setFillParent(true);
         stage.addActor(table);
 	}
