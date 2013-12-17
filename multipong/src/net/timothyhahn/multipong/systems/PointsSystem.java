@@ -1,10 +1,12 @@
 package net.timothyhahn.multipong.systems;
 
+/** MultiPong Imports **/
 import net.timothyhahn.multipong.MultiPongGame;
 import net.timothyhahn.multipong.components.Points;
 import net.timothyhahn.multipong.components.Position;
 import net.timothyhahn.multipong.components.Velocity;
 
+/** Artemis Imports **/
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.Entity;
@@ -16,9 +18,12 @@ import com.artemis.utils.ImmutableBag;
 
 public class PointsSystem extends EntitySystem {
 
-	@Mapper ComponentMapper<Position> posM;
-	@Mapper ComponentMapper<Points> pointsM;
-	@Mapper ComponentMapper<Velocity> vm;
+	@Mapper 
+	private ComponentMapper<Position> posM;
+	@Mapper 
+	private ComponentMapper<Points> pointsM;
+	@Mapper 
+	private ComponentMapper<Velocity> vm;
 	
 	private boolean gameOver = false;
 	

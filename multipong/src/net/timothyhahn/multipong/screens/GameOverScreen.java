@@ -1,40 +1,33 @@
 package net.timothyhahn.multipong.screens;
 
+/** MultiPong Imports **/
 import net.timothyhahn.multipong.MultiPongGame;
 
+/** LibGDX imports **/
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GLCommon;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class GameOverScreen extends Screen {
 
-	BitmapFont font;
+	private BitmapFont font;
+	private Stage stage;
+	private int counter = 0;
 
-	SpriteBatch batch;
-	Stage stage;
-	
-	int counter = 0;
-	private OrthographicCamera camera;
     public GameOverScreen(MultiPongGame game) {
 		super(game);
 
         FileHandle fontFile = Gdx.files.internal("data/Roboto-Regular.ttf");
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
-        int scale = MultiPongGame.WORLD_HEIGHT / game.gameHeight;
-        font = generator.generateFont(game.gameHeight / 12);
+        font = generator.generateFont(game.screenHeight / 12);
         
         font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 		stage = new Stage();
@@ -45,7 +38,7 @@ public class GameOverScreen extends Screen {
 
 		gameOverLabel.setFontScale(6);
         Table table = new Table();
-		table.add( gameOverLabel ).width(game.gameWidth / 2).height(game.gameHeight / 4);
+		table.add( gameOverLabel ).width(game.screenWidth / 2).height(game.screenHeight / 4);
         table.setFillParent(true);
         stage.addActor(table);
 	}
@@ -62,7 +55,6 @@ public class GameOverScreen extends Screen {
 
 	@Override
 	public void present() {
-    	
 		GLCommon gl = Gdx.gl;
 		gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
 		gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -74,10 +66,9 @@ public class GameOverScreen extends Screen {
         try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        counter ++;
+        counter++;
 	}
 
 	@Override
@@ -91,6 +82,7 @@ public class GameOverScreen extends Screen {
 
 	@Override
 	public void dispose() {
+		System.gc();
 	}
 
 }

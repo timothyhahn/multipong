@@ -1,7 +1,9 @@
 package net.timothyhahn.multipong.screens;
 
+/** MultiPong Imports **/
 import net.timothyhahn.multipong.MultiPongGame;
 
+/** LibGDX Imports **/
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -20,9 +22,8 @@ public class MainMenuScreen extends Screen {
 		Gdx.input.setInputProcessor(stage);
 		
 		Skin uiSkin = new Skin(Gdx.files.internal("data/uiskin.json"));
-	
-       
         
+		// Single Player Game Button
 		TextButton startSinglePlayerGameButton = new TextButton( "Single Player", uiSkin );
 		startSinglePlayerGameButton.addListener(new ClickListener() {
 			@Override
@@ -30,8 +31,8 @@ public class MainMenuScreen extends Screen {
 				game.setScreen(new SinglePlayerScreen(game));
 			}
 		});
-
 		
+		// Local Multiplayer Game Button
         TextButton startLocalMultiplayerGameButton = new TextButton( "Local Multiplayer", uiSkin );
         startLocalMultiplayerGameButton.addListener(new ClickListener() {
 			@Override
@@ -40,6 +41,7 @@ public class MainMenuScreen extends Screen {
 			}
 		});
 
+		// Online Multiplayer Lobby Button
         TextButton startNetworkMultiplayerGameButton = new TextButton("Online Multiplayer", uiSkin);
         startNetworkMultiplayerGameButton.addListener(new ClickListener() {
 			@Override
@@ -48,6 +50,7 @@ public class MainMenuScreen extends Screen {
 			}
 		});
         
+		// Add things to table
         Table table = new Table();
         table.add(startSinglePlayerGameButton).width(game.screenWidth / 2).height(game.screenHeight / 4);
         table.row();
@@ -55,6 +58,7 @@ public class MainMenuScreen extends Screen {
         table.row();
         table.add(startNetworkMultiplayerGameButton).width(game.screenWidth / 2).height(game.screenHeight / 4);
         table.setFillParent(true);
+		table.pack();
         stage.addActor(table);
 	}
 
@@ -82,7 +86,7 @@ public class MainMenuScreen extends Screen {
 
 	@Override
 	public void dispose() {
-
+		System.gc();
 	}
 
 }

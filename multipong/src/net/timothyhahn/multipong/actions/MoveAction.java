@@ -1,6 +1,6 @@
 package net.timothyhahn.multipong.actions;
 
-/** Multipong Imports **/
+/** MultiPong Imports **/
 import net.timothyhahn.multipong.components.Position;
 import net.timothyhahn.multipong.components.Velocity;
 import net.timothyhahn.multipong.MultiPongGame;

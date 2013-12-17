@@ -1,5 +1,6 @@
 package net.timothyhahn.multipong.screens;
 
+/** MultiPong Imports **/
 import net.timothyhahn.multipong.MultiPongGame;
 import net.timothyhahn.multipong.WorldRenderer;
 import net.timothyhahn.multipong.actions.MoveAction;
@@ -11,10 +12,14 @@ import net.timothyhahn.multipong.systems.AISystem;
 import net.timothyhahn.multipong.systems.CollisionSystem;
 import net.timothyhahn.multipong.systems.MovementSystem;
 import net.timothyhahn.multipong.systems.PointsSystem;
+
+/** Artemis Imports **/
 import com.artemis.Entity;
 import com.artemis.World;
 import com.artemis.managers.GroupManager;
 import com.artemis.managers.TagManager;
+
+/** LibGDX Imports **/
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Input.Keys;
@@ -22,21 +27,19 @@ import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.graphics.GLCommon;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector3;
 
 public class SinglePlayerScreen extends Screen implements InputProcessor {
-	OrthographicCamera camera;
-	Vector3 touchPoint;
-	SpriteBatch batch;
-	Entity leftPaddle;
-	Entity rightPaddle;
-	Entity ball;
-	World world;
-	WorldRenderer renderer;
-	final int worldWidth = MultiPongGame.WORLD_WIDTH;
-	final int worldHeight = MultiPongGame.WORLD_HEIGHT;
-	PointsSystem ps;
-	AISystem as;
+	private OrthographicCamera camera;
+	private SpriteBatch batch;
+	private Entity leftPaddle;
+	private Entity rightPaddle;
+	private Entity ball;
+	private World world;
+	private WorldRenderer renderer;
+	private final int worldWidth = MultiPongGame.WORLD_WIDTH;
+	private final int worldHeight = MultiPongGame.WORLD_HEIGHT;
+	private PointsSystem ps;
+	private AISystem as;
 	
 	public SinglePlayerScreen(MultiPongGame game){
 		super(game);
@@ -45,7 +48,6 @@ public class SinglePlayerScreen extends Screen implements InputProcessor {
 		
 		camera = new OrthographicCamera(worldWidth, worldHeight);
 		camera.position.set(worldWidth / 2, worldHeight / 2, 0);
-		touchPoint = new Vector3();
 		batch = new SpriteBatch();
 		ps = new PointsSystem();
 		as = new AISystem();

@@ -1,27 +1,28 @@
 package net.timothyhahn.multipong;
 
-import net.timothyhahn.multipong.screens.GameOverScreen;
+/** MultiPong Imports **/
 import net.timothyhahn.multipong.screens.MainMenuScreen;
 import net.timothyhahn.multipong.screens.Screen;
 
+/** LibGDX Imports **/
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.FPSLogger;
 
 public class MultiPongGame extends Game {
 	
+	/** Static global vars **/
 	public static final int PADDLE_HEIGHT = 128;
 	public static final int PADDLE_WIDTH = 16;
 	public static final int BALL_SIZE = 8;
-
 	public static final int WORLD_WIDTH = 480;
 	public static final int WORLD_HEIGHT = 320;
 	
+	/** Global vars **/
 	public int screenWidth = 480;
 	public int screenHeight = 320;
 
-	Screen screen;
-    GameOverScreen gos;
+	private Screen screen;
 	
 	public void setScreen(Screen screen){
 		this.screen = screen;
@@ -30,7 +31,6 @@ public class MultiPongGame extends Game {
 	@Override
 	public void create() {		
 		Assets.load();
-		//screen = new SinglePlayerScreen(this);
 		screen = new MainMenuScreen(this);
 	}
 

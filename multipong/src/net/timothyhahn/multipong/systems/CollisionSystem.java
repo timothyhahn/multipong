@@ -1,9 +1,12 @@
 package net.timothyhahn.multipong.systems;
 
+/** MultiPong Imports **/
+import net.timothyhahn.multipong.MultiPongGame;
 import net.timothyhahn.multipong.components.Bounds;
 import net.timothyhahn.multipong.components.Position;
 import net.timothyhahn.multipong.components.Velocity;
 
+/** Artemis Imports **/
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.Entity;
@@ -13,9 +16,12 @@ import com.artemis.managers.GroupManager;
 import com.artemis.utils.ImmutableBag;
 
 public class CollisionSystem extends EntitySystem {
-	@Mapper ComponentMapper<Position> pm;
-	@Mapper ComponentMapper<Velocity> vm;
-	@Mapper ComponentMapper<Bounds> bm;
+	@Mapper 
+	private ComponentMapper<Position> pm;
+	@Mapper 
+	private ComponentMapper<Velocity> vm;
+	@Mapper 
+	private ComponentMapper<Bounds> bm;
 
 	public CollisionSystem() {
 		super(Aspect.getAspectForAll(Position.class, Velocity.class, Bounds.class));
@@ -24,14 +30,14 @@ public class CollisionSystem extends EntitySystem {
 	private boolean valueInRange(int value, int min, int max){
 		return (value >= min) && (value <= max);
 	}
+
 	private void handleCollision(Entity entityA, Entity entityB) {
 		Position positionA = pm.get(entityA);
 		Bounds boundsA = bm.get(entityA);
 		Position positionB = pm.get(entityB);
 		Bounds boundsB = bm.get(entityB);
 		
-		boolean xOverlap = valueInRange(positionA.getX(), positionB.getX(), positionB.getX() + boundsB.getWidth()) ||
-						   valueInRange(positionB.getX(), positionA.getX(), positionA.getX() + boundsA.getWidth());
+		boolean xOverlap = valueInRange(positionA.getX(), positionB.getX(), positionB.getX() + boundsB.getWidth()) || valueInRange(positionB.getX(), positionA.getX(), positionA.getX() + boundsA.getWidth());
 		boolean yOverlap = valueInRange(positionA.getY(), positionB.getY(), positionB.getY() + boundsB.getHeight()) ||
 				   		   valueInRange(positionB.getY(), positionA.getY(), positionA.getY() + boundsA.getHeight());
 		

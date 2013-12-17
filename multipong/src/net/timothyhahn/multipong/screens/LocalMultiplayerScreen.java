@@ -1,9 +1,11 @@
 package net.timothyhahn.multipong.screens;
 
+/** MultiPong Imports **/
 import net.timothyhahn.multipong.MultiPongGame;
 import net.timothyhahn.multipong.actions.MoveAction;
-import com.badlogic.gdx.Input.Keys;
 
+/** LibGDX Imports **/
+import com.badlogic.gdx.Input.Keys;
 
 public class LocalMultiplayerScreen extends SinglePlayerScreen {
 
@@ -35,6 +37,7 @@ public class LocalMultiplayerScreen extends SinglePlayerScreen {
 			ma.process();
 		return true;
 	}
+
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		MoveAction ma = null;

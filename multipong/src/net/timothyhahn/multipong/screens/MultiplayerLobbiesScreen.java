@@ -1,5 +1,9 @@
 package net.timothyhahn.multipong.screens;
 
+/** MultiPong Imports **/
+import net.timothyhahn.multipong.MultiPongGame;
+
+/** Java Imports **/
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,8 +14,7 @@ import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.timothyhahn.multipong.MultiPongGame;
-
+/** LibGDX Imports **/
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -20,6 +23,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+
+/** GSON Imports **/
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -30,9 +35,9 @@ public class MultiplayerLobbiesScreen extends Screen {
 	private Stage stage;
 	private int targetPort = 8000;
 	private String targetHost = "localhost";
-	TextButton createLobby;
-	Table table;
-	Skin uiSkin;
+	private TextButton createLobby;
+	private Table table;
+	private Skin uiSkin;
 	private int counter = 0;
 
     HashMap<String, String> lobbyList;
@@ -112,7 +117,7 @@ public class MultiplayerLobbiesScreen extends Screen {
 	@Override
 	public void update() {
         table = new Table();
-        table.add(createLobby).width(game.gameWidth / 2).height(game.gameHeight / 4);
+        table.add(createLobby).width(game.screenWidth / 2).height(game.screenHeight / 4);
         table.row();
         
         try {
@@ -141,6 +146,7 @@ public class MultiplayerLobbiesScreen extends Screen {
         }
 
         table.setFillParent(true);
+		table.pack();
 		stage.addActor(table);
 	}
 
@@ -155,20 +161,15 @@ public class MultiplayerLobbiesScreen extends Screen {
 
 	@Override
 	public void pause() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
-		
+		System.gc();
 	}
 
 }

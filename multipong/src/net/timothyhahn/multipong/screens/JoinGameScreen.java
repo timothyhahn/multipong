@@ -1,5 +1,6 @@
 package net.timothyhahn.multipong.screens;
 
+/** MultiPong Imports **/
 import net.timothyhahn.multipong.MultiPongGame;
 
 public class JoinGameScreen extends Screen{
@@ -30,7 +31,7 @@ public class JoinGameScreen extends Screen{
 
 	@Override
 	public void dispose() {
-		
+		System.gc();
 	}
 
 }

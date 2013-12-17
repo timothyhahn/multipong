@@ -1,12 +1,14 @@
 package net.timothyhahn.multipong.systems;
 
-import java.util.Random;
-
-import net.timothyhahn.multipong.MultiPongGame;
+/** MultiPong Imports **/
 import net.timothyhahn.multipong.actions.MoveAction;
 import net.timothyhahn.multipong.components.Position;
 import net.timothyhahn.multipong.components.Velocity;
 
+/** Java Imports **/
+import java.util.Random;
+
+/** Artemis Imports **/
 import com.artemis.Aspect;
 import com.artemis.ComponentMapper;
 import com.artemis.Entity;
@@ -17,10 +19,13 @@ import com.artemis.managers.TagManager;
 import com.artemis.utils.ImmutableBag;
 
 public class AISystem extends EntitySystem {
-	@Mapper ComponentMapper<Position> pm;
-	@Mapper ComponentMapper<Velocity> vm;
+	@Mapper 
+	private ComponentMapper<Position> pm;
+	@Mapper 
+	private ComponentMapper<Velocity> vm;
 	private int counter = 50;
 	private Random generator;
+
 	public AISystem() {
 		super(Aspect.getAspectForAll(Position.class, Velocity.class));
 		generator = new Random(); 
@@ -47,5 +52,4 @@ public class AISystem extends EntitySystem {
 			counter++;
 		}
 	}
-
 }
