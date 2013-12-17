@@ -29,44 +29,60 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class SinglePlayerScreen extends Screen implements InputProcessor {
+    /** Private Variables **/
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
-	protected Entity leftPaddle;
-	protected Entity rightPaddle;
 	private Entity ball;
-	protected World world;
 	private WorldRenderer renderer;
 	private final int worldWidth = MultiPongGame.WORLD_WIDTH;
 	private final int worldHeight = MultiPongGame.WORLD_HEIGHT;
 	private PointsSystem ps;
+
+    /** Protected Variables **/
+    protected Entity leftPaddle;
+	protected Entity rightPaddle;
+	protected World world;
 	protected AISystem as;
 	
+    /** 
+     * Creates a SinglePlayerScreen
+     * @param   game    Game being played
+     */
 	public SinglePlayerScreen(MultiPongGame game){
 		super(game);
 		
-		// LibGDX
 		
+        // Camera and libGDX 
 		camera = new OrthographicCamera(worldWidth, worldHeight);
 		camera.position.set(worldWidth / 2, worldHeight / 2, 0);
 		batch = new SpriteBatch();
-		ps = new PointsSystem();
-		as = new AISystem();
-		
+
 		// Artemis
 		world = new World();
 
+        // Create Systems
 		world.setSystem(new CollisionSystem());
 		world.setSystem(new MovementSystem());
+
+        // These two systems need to be named
+		ps = new PointsSystem();
+		as = new AISystem();
 		world.setSystem(ps);
 		world.setSystem(as);
+
+        // Create Managers
 		world.setManager(new GroupManager());
 		world.setManager(new TagManager());
+
+        // Starts the world
 		world.initialize();
 		world.setDelta(1);
 
+        // Creates WorldRenderer
 		renderer = new WorldRenderer(batch, world);
 		renderer.setScale(MultiPongGame.WORLD_HEIGHT / game.screenHeight);
 		
+        // Left Paddle
 		leftPaddle = world.createEntity();
 		leftPaddle.addComponent(new Position(0, 100));
 		leftPaddle.addComponent(new Velocity(0,0));
@@ -75,6 +91,7 @@ public class SinglePlayerScreen extends Screen implements InputProcessor {
 		world.getManager(GroupManager.class).add(leftPaddle, "PADDLES");
 		world.getManager(TagManager.class).register("LEFT", leftPaddle);
 		
+        // Right Paddle
 		rightPaddle = world.createEntity();
 		rightPaddle.addComponent(new Position(worldWidth - MultiPongGame.PADDLE_WIDTH, 100));
 		rightPaddle.addComponent(new Velocity(0,0));
@@ -84,14 +101,17 @@ public class SinglePlayerScreen extends Screen implements InputProcessor {
 		world.getManager(TagManager.class).register("RIGHT", rightPaddle);
 		world.getManager(TagManager.class).register("AI", rightPaddle);
 		
+        // Ball
 		ball = world.createEntity();
 		ball.addComponent(new Position(worldWidth / 2 - MultiPongGame.BALL_SIZE / 2, worldHeight / 2 - MultiPongGame.BALL_SIZE / 2));
 		ball.addComponent(new Velocity(-2,0));
 		ball.addComponent(new Bounds(MultiPongGame.BALL_SIZE));
-		
 		world.getManager(GroupManager.class).add(ball, "BALLS");
 	}
 
+    /**
+     * Tells the Artemis World to take a step
+     */
 	@Override
 	public void update() {
 		world.process();
@@ -102,6 +122,9 @@ public class SinglePlayerScreen extends Screen implements InputProcessor {
 		}
 	}
 
+    /**
+     * Tells the WorldRenderer to render
+     */
 	@Override
 	public void present() {
 		GLCommon gl = Gdx.gl;
@@ -110,10 +133,8 @@ public class SinglePlayerScreen extends Screen implements InputProcessor {
 		gl.glClearColor(1.0f, 1.0f, 1.0f, 1);
         gl.glEnable(GL10.GL_TEXTURE_2D);
 
-
         Gdx.input.setInputProcessor(this);
 		renderer.render();
-
 	}
 
 	@Override
@@ -156,6 +177,13 @@ public class SinglePlayerScreen extends Screen implements InputProcessor {
 		return true;
 	}
 
+    /**
+     * SinglePlayer version of touch/mouse controls
+     * @param   screenX     x position touched
+     * @param   screenY     y position touched
+     * @param   pointer     which pointer is touching
+     * @param   button      which button was used to touch
+     */
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		MoveAction ma = null;
@@ -188,5 +216,4 @@ public class SinglePlayerScreen extends Screen implements InputProcessor {
 	public boolean scrolled(int amount) {
 		return false;
 	}
-
 }

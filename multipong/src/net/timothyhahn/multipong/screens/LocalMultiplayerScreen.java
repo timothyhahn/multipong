@@ -14,10 +14,17 @@ public class LocalMultiplayerScreen extends SinglePlayerScreen {
 		world.deleteSystem(as);
 	}
 
+    /**
+     * Overridden Methods 
+     */
+
+    /**
+     * Local Multiplayer version of key controls
+     * @param   keycode     the key being pressed
+     */
 	@Override
 	public boolean keyDown(int keycode) {
 		MoveAction ma = null;
-
 		switch(keycode) {
 			case Keys.W:
 				ma = new MoveAction(MultiPongGame.WORLD_HEIGHT, leftPaddle);
@@ -38,9 +45,18 @@ public class LocalMultiplayerScreen extends SinglePlayerScreen {
 		return true;
 	}
 
+    /**
+     * Local Multiplayer version of touch/mouse controls
+     * @param   screenX     x position touched
+     * @param   screenY     y position touched
+     * @param   pointer     which pointer is touching
+     * @param   button      which button was used to touch
+     */
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		MoveAction ma = null;
+
+        // If Left
 		if(screenX < game.screenWidth / 2 - 40){
 			if(screenY > (game.screenHeight / 2))
 				ma = new MoveAction(0, leftPaddle);
