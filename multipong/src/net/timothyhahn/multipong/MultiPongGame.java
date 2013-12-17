@@ -22,7 +22,7 @@ public class MultiPongGame extends Game {
 	public int screenWidth = 480;
 	public int screenHeight = 320;
 
-	private Screen screen;
+	public Screen screen;
 	
 	public void setScreen(Screen screen){
 		this.screen = screen;

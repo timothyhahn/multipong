@@ -31,15 +31,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class SinglePlayerScreen extends Screen implements InputProcessor {
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
-	private Entity leftPaddle;
-	private Entity rightPaddle;
+	protected Entity leftPaddle;
+	protected Entity rightPaddle;
 	private Entity ball;
-	private World world;
+	protected World world;
 	private WorldRenderer renderer;
 	private final int worldWidth = MultiPongGame.WORLD_WIDTH;
 	private final int worldHeight = MultiPongGame.WORLD_HEIGHT;
 	private PointsSystem ps;
-	private AISystem as;
+	protected AISystem as;
 	
 	public SinglePlayerScreen(MultiPongGame game){
 		super(game);
