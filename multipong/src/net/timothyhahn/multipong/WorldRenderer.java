@@ -28,10 +28,10 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 public class WorldRenderer {
 
     /** Private Variables **/
-	@Mapper 
-	private ComponentMapper<Position> pm;
-	@Mapper 
-	private ComponentMapper<Points> pointsM;
+    @Mapper 
+    private ComponentMapper<Position> pm;
+    @Mapper 
+    private ComponentMapper<Points> pointsM;
 
     private World world;
     private OrthographicCamera camera;
@@ -49,9 +49,9 @@ public class WorldRenderer {
      * @param   world   World to render
      */
     public WorldRenderer (SpriteBatch batch, World world){
-    	this.world = world;
-    	this.batch = batch;
-    	this.camera = new OrthographicCamera(MultiPongGame.WORLD_WIDTH, MultiPongGame.WORLD_HEIGHT);
+        this.world = world;
+        this.batch = batch;
+        this.camera = new OrthographicCamera(MultiPongGame.WORLD_WIDTH, MultiPongGame.WORLD_HEIGHT);
         this.camera.position.set(MultiPongGame.WORLD_WIDTH / 2, MultiPongGame.WORLD_HEIGHT / 2, 0);
 
         // Font Loading
@@ -71,48 +71,48 @@ public class WorldRenderer {
      * @param   scale   the scale between the screen size and the game size
      */
     public void setScale(int scale){
-    	this.scale = scale;
+        this.scale = scale;
     }
     
     /** 
      * Renders the world
      */
     public void render(){
-    	camera.update();
-    	batch.setProjectionMatrix(camera.combined);
-    	
+        camera.update();
+        batch.setProjectionMatrix(camera.combined);
+        
         // Grab entities and mappers that we need
-		ImmutableBag<Entity> paddles = world.getManager(GroupManager.class).getEntities("PADDLES");
-		ImmutableBag<Entity> balls = world.getManager(GroupManager.class).getEntities("BALLS");
-		pm = world.getMapper(Position.class);
-		pointsM = world.getMapper(Points.class);
+        ImmutableBag<Entity> paddles = world.getManager(GroupManager.class).getEntities("PADDLES");
+        ImmutableBag<Entity> balls = world.getManager(GroupManager.class).getEntities("BALLS");
+        pm = world.getMapper(Position.class);
+        pointsM = world.getMapper(Points.class);
 
         // Start drawing
-    	batch.enableBlending();
+        batch.enableBlending();
         batch.begin();
 
         // Render the paddles
         for(int i = 0; i < paddles.size(); i++){
-			Position paddle = pm.get(paddles.get(i));
-			batch.draw(Assets.paddle, paddle.getX(), paddle.getY());
-		}
+            Position paddle = pm.get(paddles.get(i));
+            batch.draw(Assets.paddle, paddle.getX(), paddle.getY());
+        }
 
         // Render the balls
         for(int i = 0; i < balls.size(); i++){
-			Position ball = pm.get(balls.get(i));
-			batch.draw(Assets.ball, ball.getX(), ball.getY());
-		}
+            Position ball = pm.get(balls.get(i));
+            batch.draw(Assets.ball, ball.getX(), ball.getY());
+        }
 
         // Calculate the points
-    	lPaddle = world.getManager(TagManager.class).getEntity("LEFT");
-    	rPaddle = world.getManager(TagManager.class).getEntity("RIGHT");
+        lPaddle = world.getManager(TagManager.class).getEntity("LEFT");
+        rPaddle = world.getManager(TagManager.class).getEntity("RIGHT");
         Points lPoints = pointsM.get(lPaddle);
         Points rPoints = pointsM.get(rPaddle);
         Integer lScore = lPoints.getPoints();
         Integer rScore = rPoints.getPoints();
         
         // Render the Points
-		font.setColor(1.0f, 0.0f, 0.0f, 1.0f);
+        font.setColor(1.0f, 0.0f, 0.0f, 1.0f);
         font.draw(batch, lScore.toString(), MultiPongGame.WORLD_WIDTH / 2 - 30, MultiPongGame.WORLD_HEIGHT / 2 - 5);
 
         font.setColor(0.0f, 0.0f, 1.0f, 1.0f);

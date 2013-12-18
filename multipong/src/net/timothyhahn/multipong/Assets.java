@@ -10,15 +10,15 @@ import com.badlogic.gdx.graphics.Texture;
 public class Assets {
 
     /** Textures **/
-	public static Texture paddle;
-	public static Texture ball;
+    public static Texture paddle;
+    public static Texture ball;
 
     /**
      * Loads all the files
      */
-	public static void load(){
-		paddle = new Texture(Gdx.files.internal("data/paddle.png"));
-		ball = new Texture(Gdx.files.internal("data/ball.png"));
-	}
+    public static void load(){
+        paddle = new Texture(Gdx.files.internal("data/paddle.png"));
+        ball = new Texture(Gdx.files.internal("data/ball.png"));
+    }
 
 }

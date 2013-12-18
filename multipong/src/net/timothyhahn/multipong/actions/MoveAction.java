@@ -15,40 +15,40 @@ import com.artemis.Entity;
  */
 public class MoveAction {
 
-	/** Private variables **/
-	
-	private int moveTo;
-	private Entity entity;
+    /** Private variables **/
+    
+    private int moveTo;
+    private Entity entity;
 
-	
-	/** Constructors **/
+    
+    /** Constructors **/
 
-	/** 
-	 * Creates a MoveAction
-	 * @param	moveTo	a height to a paddle to.
-	 * @param	entity	the entity to move.
-	 */
-	public MoveAction(int moveTo, Entity entity){
-		this.moveTo = moveTo;
-		this.entity = entity;
-	}
+    /** 
+     * Creates a MoveAction
+     * @param   moveTo  a height to a paddle to.
+     * @param   entity  the entity to move.
+     */
+    public MoveAction(int moveTo, Entity entity){
+        this.moveTo = moveTo;
+        this.entity = entity;
+    }
 
 
-	/** Methods **/
+    /** Methods **/
 
-	/**
-	 * Processes a move.
-	 * This calculates if you need to move upwards or downwards and
-	 * sets the velocity.
-	 */
-	public void process() {
-		int height = MultiPongGame.PADDLE_HEIGHT;
-		Position position = entity.getComponent(Position.class);
-		Velocity velocity = entity.getComponent(Velocity.class);
-		if((position.getY() + (height / 2)) < moveTo){
-			velocity.setY(3);
-		} else {
-			velocity.setY(-3);
-		}
-	}
+    /**
+     * Processes a move.
+     * This calculates if you need to move upwards or downwards and
+     * sets the velocity.
+     */
+    public void process() {
+        int height = MultiPongGame.PADDLE_HEIGHT;
+        Position position = entity.getComponent(Position.class);
+        Velocity velocity = entity.getComponent(Velocity.class);
+        if((position.getY() + (height / 2)) < moveTo){
+            velocity.setY(3);
+        } else {
+            velocity.setY(-3);
+        }
+    }
 }

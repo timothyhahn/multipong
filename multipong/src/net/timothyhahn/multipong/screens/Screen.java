@@ -3,7 +3,7 @@ package net.timothyhahn.multipong.screens;
 import net.timothyhahn.multipong.MultiPongGame;
 
 public abstract class Screen {
-	MultiPongGame game;
+    MultiPongGame game;
     
     public Screen(MultiPongGame game){
             this.game = game;

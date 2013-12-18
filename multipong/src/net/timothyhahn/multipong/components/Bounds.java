@@ -8,61 +8,61 @@ import com.artemis.Component;
  */
 public class Bounds extends Component {
 
-	/** Private Variables **/
+    /** Private Variables **/
 
-	private int width;
-	private int height;
+    private int width;
+    private int height;
 
-	
-	/** Constructors **/
+    
+    /** Constructors **/
 
-	/**
-	 * Creates a Bounds with the width and height the same.
-	 * @param	size	size to set the width and height to
-	 */
-	public Bounds(int size) {
-		this.width = size;
-		this.height = size;
-	}
+    /**
+     * Creates a Bounds with the width and height the same.
+     * @param   size    size to set the width and height to
+     */
+    public Bounds(int size) {
+        this.width = size;
+        this.height = size;
+    }
 
-	/**
-	 * Creates a Bounds with a specific width and height.
-	 * @param	width	width of the bounds
-	 * @param	height	height of the bounds
-	 */
-	public Bounds(int width, int height) {
-		this.width =  width;
-		this.height = height;
-	}
+    /**
+     * Creates a Bounds with a specific width and height.
+     * @param   width   width of the bounds
+     * @param   height  height of the bounds
+     */
+    public Bounds(int width, int height) {
+        this.width =  width;
+        this.height = height;
+    }
 
 
-	/** Accessor and Mutator Methods **/
+    /** Accessor and Mutator Methods **/
 
-	/** 
-	 * Returns width as int.
-	 */
-	public int getWidth() {
-		return width;
-	}
+    /** 
+     * Returns width as int.
+     */
+    public int getWidth() {
+        return width;
+    }
 
-	/**
-	 * Sets width
-	 */
-	public void setWidth(int width) {
-		this.width = width;
-	}
+    /**
+     * Sets width
+     */
+    public void setWidth(int width) {
+        this.width = width;
+    }
 
-	/**
-	 * Returns height as int.
-	 */
-	public int getHeight() {
-		return height;
-	}
+    /**
+     * Returns height as int.
+     */
+    public int getHeight() {
+        return height;
+    }
 
-	/**
-	 * Sets height
-	 */
-	public void setHeight(int height) {
-		this.height = height;
-	}
+    /**
+     * Sets height
+     */
+    public void setHeight(int height) {
+        this.height = height;
+    }
 }
