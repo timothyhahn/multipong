@@ -36,25 +36,19 @@ public class GameOverScreen extends Screen {
     public GameOverScreen(MultiPongGame game) {
         super(game);
 
-        // Font loading
-        FileHandle fontFile = Gdx.files.internal("data/Roboto-Regular.ttf");
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
-        font = generator.generateFont(game.screenHeight / 12);
-        font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
-
         // Create new Stage to draw UI on
         stage = new Stage();
 
         // Load default UI Skin
-        Skin uiSkin = new Skin(Gdx.files.internal("data/uiskin.json"));
+        Skin uiSkin = new Skin(Gdx.files.internal("data/Holo-light-hdpi.json"));
         
         // Label that says "Game Over"
         Label gameOverLabel = new Label("Game Over", uiSkin);
-        gameOverLabel.setFontScale(6);
+        gameOverLabel.setFontScale(2);
 
         // Create Table layout
         Table table = new Table();
-        table.add( gameOverLabel ).width(game.screenWidth / 2).height(game.screenHeight / 4);
+        table.add(gameOverLabel);
         table.setFillParent(true);
         stage.addActor(table);
     }
@@ -67,7 +61,8 @@ public class GameOverScreen extends Screen {
     @Override
     public void update() {
         //  In order to not freeze the thread, this will wait 6 times
-        //  and then go back to the main menu
+        //  and then go back to the main menu.
+    	//  Should use another thread to count, but tired.
         if(counter > 6){
             game.setScreen(new MainMenuScreen(game));
             this.dispose();
@@ -77,8 +72,8 @@ public class GameOverScreen extends Screen {
     @Override
     public void present() {
         GLCommon gl = Gdx.gl;
-        gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-        gl.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        Gdx.gl.glClearColor(1, 1, 1, 1);
+        Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
         gl.glEnable(GL10.GL_TEXTURE_2D);
         
         stage.act(Gdx.graphics.getDeltaTime());

@@ -21,7 +21,7 @@ public class MainMenuScreen extends Screen {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         
-        Skin uiSkin = new Skin(Gdx.files.internal("data/uiskin.json"));
+        Skin uiSkin = new Skin(Gdx.files.internal("data/Holo-light-hdpi.json"));
         
         // Single Player Game Button
         TextButton startSinglePlayerGameButton = new TextButton( "Single Player", uiSkin );
@@ -69,9 +69,9 @@ public class MainMenuScreen extends Screen {
 
     @Override
     public void present() {
-        Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
-        Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
-        stage.act(Gdx.graphics.getDeltaTime());
+    	Gdx.gl.glClearColor(1, 1, 1, 1);
+    	Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+    	stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
     }
 

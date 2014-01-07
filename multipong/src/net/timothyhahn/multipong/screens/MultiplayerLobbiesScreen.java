@@ -47,7 +47,7 @@ public class MultiplayerLobbiesScreen extends Screen {
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         
-        uiSkin = new Skin(Gdx.files.internal("data/uiskin.json"));
+        uiSkin = new Skin(Gdx.files.internal("data/Holo-light-hdpi.json"));
         
          lobbyList = getLobbyList();
          
