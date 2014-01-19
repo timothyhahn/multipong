@@ -10,5 +10,8 @@
 	<classpathentry exported="true" kind="lib" path="/multipong/libs/gdx.jar" sourcepath="/multipong/libs/gdx-sources.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/gdx-freetype.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/gdx-backend-android.jar"/>
+	<classpathentry kind="lib" path="libs/jackson-annotations-2.3.0.jar"/>
+	<classpathentry kind="lib" path="libs/jackson-core-2.3.1.jar"/>
+	<classpathentry kind="lib" path="libs/jackson-databind-2.3.1.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

@@ -1,7 +1,7 @@
 package net.timothyhahn.multipong.systems;
 
 /** MultiPong Imports **/
-import net.timothyhahn.multipong.MultiPongGame;
+import net.timothyhahn.multipong.Constants;
 import net.timothyhahn.multipong.components.Position;
 import net.timothyhahn.multipong.components.Velocity;
 
@@ -61,7 +61,7 @@ public class MovementSystem extends EntitySystem {
             if(!(position.getY() > 0) && velocity.getY() < 0) {
                 velocity.setY(0);
             }
-            if(!(position.getY() < (320 - MultiPongGame.PADDLE_HEIGHT)) && velocity.getY() > 0) {
+            if(!(position.getY() < (320 - Constants.PADDLE_HEIGHT)) && velocity.getY() > 0) {
                 velocity.setY(0);
             }
 
@@ -77,7 +77,7 @@ public class MovementSystem extends EntitySystem {
             if(!(position.getY() > 0) && velocity.getY() < 0) {
                 velocity.setY(-velocity.getY());
             }
-            if(!(position.getY() < (MultiPongGame.WORLD_HEIGHT - MultiPongGame.BALL_SIZE)) && velocity.getY() > 0) {
+            if(!(position.getY() < (Constants.WORLD_HEIGHT - Constants.BALL_SIZE)) && velocity.getY() > 0) {
                 velocity.setY(-velocity.getY());
             }
 

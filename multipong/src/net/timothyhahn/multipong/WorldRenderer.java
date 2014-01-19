@@ -1,6 +1,7 @@
 package net.timothyhahn.multipong;
 
 /** MultiPong Imports **/
+import net.timothyhahn.multipong.Constants;
 import net.timothyhahn.multipong.components.Points;
 import net.timothyhahn.multipong.components.Position;
 
@@ -51,19 +52,20 @@ public class WorldRenderer {
     public WorldRenderer (SpriteBatch batch, World world){
         this.world = world;
         this.batch = batch;
-        this.camera = new OrthographicCamera(MultiPongGame.WORLD_WIDTH, MultiPongGame.WORLD_HEIGHT);
-        this.camera.position.set(MultiPongGame.WORLD_WIDTH / 2, MultiPongGame.WORLD_HEIGHT / 2, 0);
+        this.camera = new OrthographicCamera(Constants.WORLD_WIDTH, Constants.WORLD_HEIGHT);
+        this.camera.position.set(Constants.WORLD_WIDTH / 2, Constants.WORLD_HEIGHT / 2, 0);
 
         // Font Loading
         font = new BitmapFont();
         FileHandle fontFile = Gdx.files.internal("data/Roboto-Regular.ttf");
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(fontFile);
-        font = generator.generateFont(MultiPongGame.WORLD_HEIGHT * scale/ 24);
+        font = generator.generateFont(Constants.WORLD_HEIGHT * scale/ 24);
         font.setScale((float) (1.0 / scale));
         font.getRegion().getTexture().setFilter(TextureFilter.Linear, TextureFilter.Linear);
 
         lPaddle = world.getManager(TagManager.class).getEntity("LEFT");
         rPaddle = world.getManager(TagManager.class).getEntity("RIGHT");
+        generator.dispose();
     }
 
     /**
@@ -113,11 +115,16 @@ public class WorldRenderer {
         
         // Render the Points
         font.setColor(1.0f, 0.0f, 0.0f, 1.0f);
-        font.draw(batch, lScore.toString(), MultiPongGame.WORLD_WIDTH / 2 - 30, MultiPongGame.WORLD_HEIGHT / 2 - 5);
+        font.draw(batch, lScore.toString(), Constants.WORLD_WIDTH / 2 - 30, Constants.WORLD_HEIGHT / 2 - 5);
 
         font.setColor(0.0f, 0.0f, 1.0f, 1.0f);
-        font.draw(batch, rScore.toString(), MultiPongGame.WORLD_WIDTH / 2 + 20, MultiPongGame.WORLD_HEIGHT / 2 - 5);
+        font.draw(batch, rScore.toString(), Constants.WORLD_WIDTH / 2 + 20, Constants.WORLD_HEIGHT / 2 - 5);
     
         batch.end();
     }
+
+	public void dispose() {
+		font.dispose();
+		batch.dispose();
+	}
 }

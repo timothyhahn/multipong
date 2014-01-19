@@ -32,6 +32,9 @@ public class Points extends Component {
         return this.points;
     }
     
+    public void setPoints(int points) {
+    	this.points = points;
+    }
     /**
      * Increments the score
      */

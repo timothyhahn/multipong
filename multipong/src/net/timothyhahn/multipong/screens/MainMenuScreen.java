@@ -15,13 +15,14 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 public class MainMenuScreen extends Screen {
     private Stage stage;
+    private Skin uiSkin;
 
     public MainMenuScreen(final MultiPongGame game) {
         super(game);
         stage = new Stage();
         Gdx.input.setInputProcessor(stage);
         
-        Skin uiSkin = new Skin(Gdx.files.internal("data/Holo-light-hdpi.json"));
+        uiSkin = new Skin(Gdx.files.internal("data/Holo-light-hdpi.json"));
         
         // Single Player Game Button
         TextButton startSinglePlayerGameButton = new TextButton( "Single Player", uiSkin );
@@ -86,6 +87,8 @@ public class MainMenuScreen extends Screen {
 
     @Override
     public void dispose() {
+    	stage.dispose();
+    	uiSkin.dispose();
         System.gc();
     }
 

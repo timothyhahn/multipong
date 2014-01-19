@@ -1,9 +1,9 @@
 package net.timothyhahn.multipong.actions;
 
 /** MultiPong Imports **/
+import net.timothyhahn.multipong.Constants;
 import net.timothyhahn.multipong.components.Position;
 import net.timothyhahn.multipong.components.Velocity;
-import net.timothyhahn.multipong.MultiPongGame;
 
 /** Artemis Imports **/
 import com.artemis.Entity;
@@ -42,7 +42,7 @@ public class MoveAction {
      * sets the velocity.
      */
     public void process() {
-        int height = MultiPongGame.PADDLE_HEIGHT;
+        int height = Constants.PADDLE_HEIGHT;
         Position position = entity.getComponent(Position.class);
         Velocity velocity = entity.getComponent(Velocity.class);
         if((position.getY() + (height / 2)) < moveTo){

@@ -14,13 +14,6 @@ import com.badlogic.gdx.graphics.FPSLogger;
  */
 public class MultiPongGame extends Game {
     
-    /** Static global vars **/
-    public static final int PADDLE_HEIGHT = 128;
-    public static final int PADDLE_WIDTH = 16;
-    public static final int BALL_SIZE = 8;
-    public static final int WORLD_WIDTH = 480;
-    public static final int WORLD_HEIGHT = 320;
-    
     /** Global vars **/
     public int screenWidth = 480;
     public int screenHeight = 320;
@@ -31,6 +24,7 @@ public class MultiPongGame extends Game {
      * @param   screen  The screen to change to
      */
     public void setScreen(Screen screen){
+    	this.screen.dispose();
         this.screen = screen;
     }
 

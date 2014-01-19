@@ -2,6 +2,7 @@ package net.timothyhahn.multipong.screens;
 
 /** MultiPong Imports **/
 import net.timothyhahn.multipong.MultiPongGame;
+import net.timothyhahn.multipong.Constants;
 import net.timothyhahn.multipong.WorldRenderer;
 import net.timothyhahn.multipong.actions.MoveAction;
 import net.timothyhahn.multipong.components.Bounds;
@@ -34,9 +35,9 @@ public class SinglePlayerScreen extends Screen implements InputProcessor {
     private SpriteBatch batch;
     private Entity ball;
     private WorldRenderer renderer;
-    private final int worldWidth = MultiPongGame.WORLD_WIDTH;
-    private final int worldHeight = MultiPongGame.WORLD_HEIGHT;
-    private PointsSystem ps;
+    private final int worldWidth = Constants.WORLD_WIDTH;
+    private final int worldHeight = Constants.WORLD_HEIGHT;
+    protected PointsSystem ps;
 
     /** Protected Variables **/
     protected Entity leftPaddle;
@@ -50,7 +51,6 @@ public class SinglePlayerScreen extends Screen implements InputProcessor {
      */
     public SinglePlayerScreen(MultiPongGame game){
         super(game);
-        
         
         // Camera and libGDX 
         camera = new OrthographicCamera(worldWidth, worldHeight);
@@ -80,22 +80,22 @@ public class SinglePlayerScreen extends Screen implements InputProcessor {
 
         // Creates WorldRenderer
         renderer = new WorldRenderer(batch, world);
-        renderer.setScale(MultiPongGame.WORLD_HEIGHT / game.screenHeight);
+        renderer.setScale(Constants.WORLD_HEIGHT / game.screenHeight);
         
         // Left Paddle
         leftPaddle = world.createEntity();
         leftPaddle.addComponent(new Position(0, 100));
         leftPaddle.addComponent(new Velocity(0,0));
-        leftPaddle.addComponent(new Bounds(MultiPongGame.PADDLE_WIDTH, MultiPongGame.PADDLE_HEIGHT + 4));
+        leftPaddle.addComponent(new Bounds(Constants.PADDLE_WIDTH, Constants.PADDLE_HEIGHT + 4));
         leftPaddle.addComponent(new Points());
         world.getManager(GroupManager.class).add(leftPaddle, "PADDLES");
         world.getManager(TagManager.class).register("LEFT", leftPaddle);
         
         // Right Paddle
         rightPaddle = world.createEntity();
-        rightPaddle.addComponent(new Position(worldWidth - MultiPongGame.PADDLE_WIDTH, 100));
+        rightPaddle.addComponent(new Position(worldWidth - Constants.PADDLE_WIDTH, 100));
         rightPaddle.addComponent(new Velocity(0,0));
-        rightPaddle.addComponent(new Bounds(MultiPongGame.PADDLE_WIDTH, MultiPongGame.PADDLE_HEIGHT));
+        rightPaddle.addComponent(new Bounds(Constants.PADDLE_WIDTH, Constants.PADDLE_HEIGHT));
         rightPaddle.addComponent(new Points());
         world.getManager(GroupManager.class).add(rightPaddle, "PADDLES");       
         world.getManager(TagManager.class).register("RIGHT", rightPaddle);
@@ -103,10 +103,11 @@ public class SinglePlayerScreen extends Screen implements InputProcessor {
         
         // Ball
         ball = world.createEntity();
-        ball.addComponent(new Position(worldWidth / 2 - MultiPongGame.BALL_SIZE / 2, worldHeight / 2 - MultiPongGame.BALL_SIZE / 2));
+        ball.addComponent(new Position(worldWidth / 2 - Constants.BALL_SIZE / 2, worldHeight / 2 - Constants.BALL_SIZE / 2));
         ball.addComponent(new Velocity(-2,0));
-        ball.addComponent(new Bounds(MultiPongGame.BALL_SIZE));
+        ball.addComponent(new Bounds(Constants.BALL_SIZE));
         world.getManager(GroupManager.class).add(ball, "BALLS");
+        world.getManager(TagManager.class).register("BALL", ball);
     }
 
     /**
@@ -118,7 +119,6 @@ public class SinglePlayerScreen extends Screen implements InputProcessor {
         if (ps.isGameOver()){
             Gdx.gl.glClearColor(0.0f, 0.0f, 0.0f, 1);
             game.setScreen(new GameOverScreen(game));
-            this.dispose();
         }
     }
 
@@ -148,6 +148,8 @@ public class SinglePlayerScreen extends Screen implements InputProcessor {
 
     @Override
     public void dispose() {
+    	batch.dispose();
+    	renderer.dispose();
         System.gc();
     }
 
@@ -156,7 +158,7 @@ public class SinglePlayerScreen extends Screen implements InputProcessor {
         MoveAction ma = null;
 
         if(keycode == Keys.W || keycode == Keys.UP)
-            ma = new MoveAction(MultiPongGame.WORLD_HEIGHT, leftPaddle);
+            ma = new MoveAction(Constants.WORLD_HEIGHT, leftPaddle);
         else if(keycode == Keys.S || keycode == Keys.DOWN)
             ma = new MoveAction(0, leftPaddle);
 
@@ -191,7 +193,7 @@ public class SinglePlayerScreen extends Screen implements InputProcessor {
         if(screenY > (game.screenHeight / 2))
             ma = new MoveAction(0, leftPaddle);
         else
-            ma = new MoveAction(MultiPongGame.WORLD_HEIGHT, leftPaddle);
+            ma = new MoveAction(Constants.WORLD_HEIGHT, leftPaddle);
 
         ma.process();
         return true;

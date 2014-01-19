@@ -1,7 +1,7 @@
 package net.timothyhahn.multipong.systems;
 
 /** MultiPong Imports **/
-import net.timothyhahn.multipong.MultiPongGame;
+import net.timothyhahn.multipong.Constants;
 import net.timothyhahn.multipong.components.Points;
 import net.timothyhahn.multipong.components.Position;
 import net.timothyhahn.multipong.components.Velocity;
@@ -72,14 +72,8 @@ public class PointsSystem extends EntitySystem {
             Velocity velocity = vm.get(balls.get(i));
             
             // If ball goes less than the left side
-            if(!(position.getX() > (0 - MultiPongGame.BALL_SIZE - 5)) ) {
+            if(!(position.getX() > (0 - Constants.BALL_SIZE - 5)) ) {
                 rPoints.score();
-
-                // Game ends after 9 points
-                if(rPoints.getPoints() > 9){
-                    gameOver = true;
-                }
-
                 // Reset the positions for all 
                 position.reset();
                 for(int j = 0; j < paddles.size(); j++){
@@ -90,13 +84,11 @@ public class PointsSystem extends EntitySystem {
                 // Send the ball to the left
                 velocity.setX(-2);
                 velocity.setY(0);
-            } else if(!(position.getX() < (MultiPongGame.WORLD_WIDTH + MultiPongGame.BALL_SIZE + 5))) {
+            } else if(!(position.getX() < (Constants.WORLD_WIDTH + Constants.BALL_SIZE + 5))) {
 
                 //Mirrors the above function, but for the right side
                 lPoints.score();
-                if(lPoints.getPoints() > 9){
-                    gameOver = true;
-                }
+               
                 position.reset();
                 for(int j = 0; j < paddles.size(); j++){
                     Position pPosition = posM.get(paddles.get(j));
@@ -107,6 +99,15 @@ public class PointsSystem extends EntitySystem {
             }
             
         }
+        
+        // Game ends after 9 points
+        if(rPoints.getPoints() > 9){
+            gameOver = true;
+        }
+        if(lPoints.getPoints() > 9){
+            gameOver = true;
+        }
+
     }
 
 
