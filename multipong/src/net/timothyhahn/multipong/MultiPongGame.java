@@ -24,8 +24,13 @@ public class MultiPongGame extends Game {
      * @param   screen  The screen to change to
      */
     public void setScreen(Screen screen){
-    	this.screen.dispose();
-        this.screen = screen;
+    	try {
+    		this.screen.dispose();
+    	} catch (IllegalArgumentException iae){
+    		
+    	} finally {
+    		this.screen = screen;
+    	}
     }
 
     /** Overridden methods **/

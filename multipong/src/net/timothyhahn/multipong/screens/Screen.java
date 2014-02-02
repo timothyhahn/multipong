@@ -17,5 +17,5 @@ public abstract class Screen {
     
     public abstract void resume();
     
-    public abstract void dispose();
+    public abstract void dispose() throws IllegalArgumentException;
 }

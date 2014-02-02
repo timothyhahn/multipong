@@ -14,6 +14,7 @@ import net.timothyhahn.multipong.systems.CollisionSystem;
 import net.timothyhahn.multipong.systems.MovementSystem;
 import net.timothyhahn.multipong.systems.PointsSystem;
 
+
 /** Artemis Imports **/
 import com.artemis.Entity;
 import com.artemis.World;
@@ -150,7 +151,6 @@ public class SinglePlayerScreen extends Screen implements InputProcessor {
     public void dispose() {
     	batch.dispose();
     	renderer.dispose();
-        System.gc();
     }
 
     @Override

@@ -124,7 +124,11 @@ public class WorldRenderer {
     }
 
 	public void dispose() {
-		font.dispose();
-		batch.dispose();
+		try{
+			font.dispose();
+			batch.dispose();
+		} catch (IllegalArgumentException iae){
+			
+		}
 	}
 }
